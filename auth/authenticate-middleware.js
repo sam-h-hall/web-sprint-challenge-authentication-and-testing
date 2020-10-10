@@ -6,9 +6,10 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization;
 
     if (token) {
-      jwt.verify(toiken, secret, (err, decodedToken) => {
+      jwt.verify(token, secret, (err, decodedToken) => {
         if (err) {
           res.status(401).json({
+            err: err.message,
             you: "shall not pass!"
           });
         } else {
@@ -22,7 +23,7 @@ module.exports = (req, res, next) => {
       })
     }
   } catch (err) {
-    res.satus(500).json({
+    res.status(500).json({
       err: err.message,
       message: "Server error fulfilling your request"
     })
