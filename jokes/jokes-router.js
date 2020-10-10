@@ -1,10 +1,12 @@
 const axios = require('axios');
-
+const authentication = require("../auth/authenticate-middleware");
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
+router.get('/', authentication, (req, res, next) => {
   const requestOptions = {
-    headers: { accept: 'application/json' },
+    headers: {
+      accept: 'application/json'
+    },
   };
 
   axios
@@ -13,7 +15,10 @@ router.get('/', (req, res) => {
       res.status(200).json(response.data.results);
     })
     .catch(err => {
-      res.status(500).json({ message: 'Error Fetching Jokes', error: err });
+      res.status(500).json({
+        message: 'Error Fetching Jokes',
+        error: err
+      });
     });
 });
 
