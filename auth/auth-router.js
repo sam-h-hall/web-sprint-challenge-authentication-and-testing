@@ -30,10 +30,10 @@ router.post('/register', async (req, res) => {
         token,
       });
     } else {
-
       res.status(400).json({
         message: "Please provide valid username and password"
       });
+      throw new Error("missing username or password")
     };
   } catch (err) {
 
